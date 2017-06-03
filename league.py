@@ -92,12 +92,11 @@ def main(args):
             print('---------------------------------------------')
             time.sleep(5)
 
-    tester = dynamo.DynamoMatches()
     matches = get_recent_ten(get_account_id('pwnyexpress69'))
     acc_id = str(get_account_id('pwnyexpress69'))
     for i in matches:
         if i['subType'] == 'NORMAL':
-            tester.add_match(acc_id, str(i['gameId']), i)
+            dynamo.add_match(acc_id, str(i['gameId']), i)
 
 
 if __name__ == '__main__':

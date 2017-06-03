@@ -14,31 +14,24 @@ class DecimalEncoder(json.JSONEncoder):
                 return int(o)
         return super(DecimalEncoder, self).default(o)
 
-class DynamoMatches:
-    def __init__(self):
-        self.dynamodb = boto3.resource('dynamodb', region_name='us-east-2')
-        self.table = self.dynamodb.Table('Matches')
+dynamodb = boto3.resource('dynamodb', region_name='us-east-2')
+table = dynamodb.Table('Matches')
 
-    def add_match(self, player_id, match_id, info): 
-        response = self.table.put_item(
-            Item={
-                'player_id': str(player_id),
-                'match_id': str(match_id), 
-                'info': info
-            }
-        )
+def add_match(player_id, match_id, info): 
+    response = table.put_item(
+        Item={
+            'player_id': str(player_id),
+            'match_id': str(match_id), 
+            'info': info
+        }
+    )
 
-        print("PutItem succeeded:")
-        print(json.dumps(response, indent=4, cls=DecimalEncoder))
+    print("PutItem succeeded:")
+    print(json.dumps(response, indent=4, cls=DecimalEncoder))
 
 
-    def check_match(self, player_id, match_id):
-        response = self.table.query(
-                    KeyConditionExpression=Key('player_id').eq('123') & Key('match_id').eq('321231')
+def check_match(player_id, match_id):
+    response = table.query(
+            KeyConditionExpression=Key('player_id').eq('123') & Key('match_id').eq('321231')
                     )
-
-        return bool(len(response['Items']))
-
-tester = DynamoMatches()
-print(tester.check_match(1,2))
-
+    return bool(len(response['Items']))
