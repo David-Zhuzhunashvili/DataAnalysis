@@ -1,8 +1,9 @@
 #!/usr/bin/env python
+import sys
+sys.path.insert(0, '/Users/dzhuzhunashvili/workspace/pythonWS/league_data/data/')
+import constants
 import os
 import requests
-import constants
-import sys
 import time
 import dynamo
 
@@ -92,8 +93,8 @@ def main(args):
             time.sleep(5)
 
     tester = dynamo.DynamoMatches()
-    matches = get_recent_ten(get_account_id('bluelldragon'))
-    acc_id = str(get_account_id('bluelldragon'))
+    matches = get_recent_ten(get_account_id('pwnyexpress69'))
+    acc_id = str(get_account_id('pwnyexpress69'))
     for i in matches:
         if i['subType'] == 'NORMAL':
             tester.add_match(acc_id, str(i['gameId']), i)

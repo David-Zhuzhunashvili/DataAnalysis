@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+import sys
+sys.path.insert(0, '/Users/dzhuzhunashvili/workspace/pythonWS/league_data/data')
 import os
 import json
 
@@ -14,13 +16,12 @@ URLS = {
 HEADERS = {'X-Riot-Token' : API_KEY}
 
 CHAMP_BY_ID = {}
-with open('champ_by_id.json') as f:
+with open('data/champ_by_id.json') as f:
     CHAMP_BY_ID = json.load(f)
 
 CHAMP_BY_NAME = {}
-with open('champ_by_name.json') as f:
+with open('data/champ_by_name.json') as f:
     CHAMP_BY_NAME = json.load(f)
 
 
 print(CHAMP_BY_ID['data']['236'])
-#"queue": 2 or 400
